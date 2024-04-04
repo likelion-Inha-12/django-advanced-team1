@@ -47,3 +47,28 @@ def delete_user(request, id):
         return JsonResponse(data, status = 200)
     
     return JsonResponse({"message" : "DELETE 요청만 허용됩니다."})
+
+
+#api6 대표임명_민경
+#회원 이름의 경우 user.email로 구현
+
+def appoint_user(request, id):
+    if request.method == 'POST':
+        user = get_object_or_404(User, pk=id) #user 존재하지 않으면 404 에러 반환
+
+        # 이미 대표가 있고, 현재 사용자가 대표가 아닌 경우 400 에러+메세지 반환
+        if User.objects.filter(is_leader=True).exclude(pk=id).exists():
+            return JsonResponse({"message": "대표는 2명 이상일 수 없습니다."}, status=400)
+        
+        #이미 대표일 경우 대표 자격 박탈
+        if user.is_leader == True:
+            user.is_leader = False
+            user.save()
+            return JsonResponse({"message": f"{user.email}(을)를 대표 자격을 박탈하였습니다."})
+        else: 
+            user.is_leader = True
+            user.save()
+            return JsonResponse({"message": f"{user.email}(을)를 대표로 임명 하였습니다."})
+    
+    else:
+        return JsonResponse({'message': 'POST 요청만 허용됩니다.'})
