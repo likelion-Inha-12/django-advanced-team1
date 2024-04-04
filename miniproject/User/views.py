@@ -63,11 +63,11 @@ def appoint_user(request, id):
         if user.is_leader == True:
             user.is_leader = False
             user.save()
-            return JsonResponse({"message": f"{user.email}(을)를 대표 자격을 박탈하였습니다."})
+            return JsonResponse({"message": f"{user.name}(을)를 대표 자격을 박탈하였습니다."})
         else: 
             user.is_leader = True
             user.save()
-            return JsonResponse({"message": f"{user.email}(을)를 대표로 임명 하였습니다."})
+            return JsonResponse({"message": f"{user.name}(을)를 대표로 임명 하였습니다."})
     
     else:
         return JsonResponse({'message': 'POST 요청만 허용됩니다.'})
