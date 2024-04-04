@@ -9,12 +9,14 @@ def create_user(request):
         
         email = data.get('email')
         password = data.get('password')
+        name = data.get('name')
         is_leader = data.get('is_leader')
         hearts = data.get('hearts')
 
         user = User(
             email = email,
             password = password,
+            name = name,
             is_leader = is_leader,
             hearts = hearts
         )
