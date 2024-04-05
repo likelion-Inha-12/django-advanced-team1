@@ -12,9 +12,9 @@
 
 
 ## (api6) 대표로 임명하기, 대표 자격 박탈시키기, 2명 이상 대표 임명시 400 에러
-![대표 임명](/django-advanced-team1/postman/대표%20임명.png)
-![대표 박탈](/django-advanced-team1/postman/대표%20박탈.png)
-![2명 이상 대표 오류](/django-advanced-team1/postman/대표%202명%20이상.png)
+![대표 임명](/postman/대표%20임명.png)
+![대표 박탈](/postman/대표%20박탈.png)
+![2명 이상 대표 오류](/postman/대표%202명%20이상.png)
 
 ## (api7) 모든 회원들의 정보 조회
 ![모든 회원들의 정보 조회](/postman/모든%20정보%20조회.png)
