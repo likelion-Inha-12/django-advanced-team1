@@ -32,6 +32,7 @@ def get_user(request,id):
         data = {
             'id' : user.id,
             'email' : user.email,
+            'name' : user.name,
             'is_leader' : user.is_leader,
             'hearts' : user.hearts,
         }
