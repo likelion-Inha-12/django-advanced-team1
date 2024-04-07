@@ -8,5 +8,7 @@ urlpatterns = [
     path('<int:id>/', views.get_user),
     path('delete/<int:id>/', views.delete_user),
     path('appoint/<int:id>/', views.appoint_user),
-    path('listall/', views.list_all)
+    path('listall/', views.list_all),
+    path('changePassword/<int:id>/',views.change_password),
+    path('pressH/<int:id>/',views.press_heart),
 ]
