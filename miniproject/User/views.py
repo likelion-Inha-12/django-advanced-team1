@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from .models import *
 
+#api1 회원 생성_민혁
 def create_user(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -25,7 +26,7 @@ def create_user(request):
         return JsonResponse({'message' : 'success'})
     return JsonResponse({'message' : 'POST 요청만 허용됩니다.'})
 
-
+#api2 회원 정보 조회_민혁
 def get_user(request,id):
     if request.method == 'GET':
         user = get_object_or_404(User, id = id)
@@ -39,6 +40,19 @@ def get_user(request,id):
     else:
         return JsonResponse({'message': 'GET 요청만 허용됩니다.'})
 
+#api3 비밀번호 변경_성민
+def change_password(request,id) :
+    if request.method == 'PATCH':
+        data = json.loads(request.body)
+        password = data.get('password')
+        user = get_object_or_404(User, id=id)
+        user.password = password
+        user.save()
+        return JsonResponse({'message' : f"{user.name}회원의 비밀번호가 업데이트되었습니다."},status = 200)
+    else :
+        return JsonResponse({'message': 'PATCH 요청만 허용됩니다.'})
+    
+#api4 회원 삭제_민혁
 def delete_user(request, id):
     if request.method == 'DELETE':
         user =get_object_or_404(User, id = id)
@@ -50,6 +64,16 @@ def delete_user(request, id):
     
     return JsonResponse({"message" : "DELETE 요청만 허용됩니다."})
 
+#api5 회원 하트 누르기_성민
+def press_heart(request,id) :
+    if request.method == 'PATCH':
+        user = get_object_or_404(User, id=id)
+        user.hearts += 1
+        user.save()
+        return JsonResponse({'message' : f"{user.name}회원의 총 하트 수는{user.hearts}입니다"},status = 200)
+    else :
+        return JsonResponse({'message': 'PATCH 요청만 허용됩니다.'})
+    
 
 #api6 대표임명_민경
 #회원 이름의 경우 user.email로 구현
@@ -89,24 +113,6 @@ def list_all(request):
     else:
         return JsonResponse({'message': 'GET 요청만 허용됩니다.'})
     
-#api 3 비밀번호 변경_성민
-def change_password(request,id) :
-    if request.method == 'PATCH':
-        data = json.loads(request.body)
-        password = data.get('password')
-        user = get_object_or_404(User, id=id)
-        user.password = password
-        user.save()
-        return JsonResponse({'message' : f"{user.name}회원의 비밀번호가 업데이트되었습니다."},status = 200)
-    else :
-        return JsonResponse({'message': 'PATCH 요청만 허용됩니다.'})
+
     
-#api 5 회원 하트 누르기_성민
-def press_heart(request,id) :
-    if request.method == 'PATCH':
-        user = get_object_or_404(User, id=id)
-        user.hearts += 1
-        user.save()
-        return JsonResponse({'message' : f"{user.name}회원의 총 하트 수는{user.hearts}입니다"},status = 200)
-    else :
-        return JsonResponse({'message': 'PATCH 요청만 허용됩니다.'})
+
