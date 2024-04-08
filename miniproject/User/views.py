@@ -88,3 +88,25 @@ def list_all(request):
         return JsonResponse(data)
     else:
         return JsonResponse({'message': 'GET 요청만 허용됩니다.'})
+    
+#api 3 비밀번호 변경_성민
+def change_password(request,id) :
+    if request.method == 'PATCH':
+        data = json.loads(request.body)
+        password = data.get('password')
+        user = get_object_or_404(User, id=id)
+        user.password = password
+        user.save()
+        return JsonResponse({'message' : f"{user.name}회원의 비밀번호가 업데이트되었습니다."},status = 200)
+    else :
+        return JsonResponse({'message': 'PATCH 요청만 허용됩니다.'})
+    
+#api 5 회원 하트 누르기_성민
+def press_heart(request,id) :
+    if request.method == 'PATCH':
+        user = get_object_or_404(User, id=id)
+        user.hearts += 1
+        user.save()
+        return JsonResponse({'message' : f"{user.name}회원의 총 하트 수는{user.hearts}입니다"},status = 200)
+    else :
+        return JsonResponse({'message': 'PATCH 요청만 허용됩니다.'})
